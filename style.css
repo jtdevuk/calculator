@@ -24,13 +24,90 @@ body {
     gap: 5px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "clear divide times delete"
+    "seven eight nine minus"
+    "four five six plus"
+    "one two three equals"
+    "zero zero point equals";
     margin: 0 auto;
     margin-top: 20px;
     width: 90%;
     height: 80%;
-    background-color: teal;
 }
 
 .button {
     background-color: violet;
+}
+
+#equals {
+    grid-area: equals;
+}
+
+#point {
+    grid-area: point;
+}
+
+#zero {
+    grid-area: zero;
+}
+
+#one {
+    grid-area: one;
+}
+
+#two {
+    grid-area: two;
+}
+
+#three {
+    grid-area: three;
+}
+
+#four {
+    grid-area: four;
+}
+
+#five {
+    grid-area: five;
+}
+
+#six {
+    grid-area: six;
+}
+
+#seven {
+    grid-area: seven;
+}
+
+#eight {
+    grid-area: eight;
+}
+
+#nine {
+    grid-area: nine;
+}
+
+#plus {
+    grid-area: plus;
+}
+
+#minus {
+    grid-area: minus;
+}
+
+#delete {
+    grid-area: delete;
+}
+
+#times {
+    grid-area: times;
+}
+
+#divide {
+    grid-area: divide;
+}
+
+#clear {
+    grid-area: clear;
 }
