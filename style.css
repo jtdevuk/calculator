@@ -1,16 +1,17 @@
 body {
     background-color: lightgray;
+    text-align: center;
 }
 
 #calculator {
     display: block;
     padding-top: 20px; 
     padding-bottom: 20px;    
-    border-radius: 5px;
-    margin: 100px auto 0 auto;   
+    border-radius: 10px;
+    margin: 100px auto 50px auto;   
     width: 500px;
     height: 620px;    
-    background-color: #5D737E;
+    background-color: #D6F8D6;
     box-shadow: -8px 8px 9px -4px rgba(0,0,0,0.75); 
 }
 
@@ -27,7 +28,6 @@ body {
     background-color: white;
     font-size: 60px;
 }
-
 
 #button-container {
     display: grid;
@@ -55,8 +55,14 @@ body {
     font-size: 24px;
 }
 
+img {
+    width: 35px;
+    height: 35px;
+}
+
 #equals {
     grid-area: equals;
+    background-color: #60967c;
 }
 
 #point {
