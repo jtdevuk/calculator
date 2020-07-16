@@ -9,7 +9,7 @@
         <div id="calculator">
             <div id="display">0</div>
             <div id="button-container">
-                <div class="button" id="clear">
+                <div class="button" id="clear" data-value="">
                     <span>C</span>
                 </div>                
                 <div class="button" id="divide" data-value="/">
@@ -18,7 +18,7 @@
                 <div class="button" id="times" data-value="*">
                     <span>*</span>
                 </div>
-                <div class="button" id="delete">
+                <div class="button" id="delete" data-value="">
                     <img src="backspace.png">
                 </div>
                 <div class="button" id="minus" data-value="-">
@@ -65,26 +65,31 @@
                 </div>                
             </div>
         </div>
+        <p>Created by <a href="www.github.com">jtdevuk </a>2020</p>
         Icons made by <a href="https://www.flaticon.com/authors/prettycons" title="prettycons">prettycons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
         <script>
 
            let display = document.querySelector('#display')
            let button = document.querySelector('#one')
            let buttons = document.querySelectorAll('.button')
-           console.log(buttons)             
+           let operands = ""                      
 
            buttons.forEach(function(button){
                 button.addEventListener("click", function(){                    
-
-                    if(this.id=='clear') {
-                        display.innerHTML = ""
-                    }
                     
-                    if(this.getAttribute('data-value') != null) {
-                    display.innerHTML += this.getAttribute('data-value')
-                    }
+                    if(this.id=='clear') {
+                        operands = ""
+                        return display.innerHTML = "0";
+                    }    
 
-                    this.classList.toggle('pushed')
+                    if(this.id=='delete') {
+                        operands = operands.slice(0, -1)                       
+                        return display.innerHTML = operands                       
+                    }                
+                    
+                    display.innerHTML = "";    
+                    operands += this.getAttribute('data-value');
+                    display.innerHTML = operands;                    
                 })
             })
 
