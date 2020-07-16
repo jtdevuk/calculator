@@ -69,27 +69,38 @@
         Icons made by <a href="https://www.flaticon.com/authors/prettycons" title="prettycons">prettycons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
         <script>
 
-           let display = document.querySelector('#display')
-           let button = document.querySelector('#one')
-           let buttons = document.querySelectorAll('.button')
-           let operands = ""                      
+           let display = document.querySelector('#display');
+           let button = document.querySelector('#one');
+           let buttons = document.querySelectorAll('.button');
+           let operands = "";
+           let displayCount = 1;                      
 
            buttons.forEach(function(button){
-                button.addEventListener("click", function(){                    
+                button.addEventListener("click", function(){                                          
                     
                     if(this.id=='clear') {
-                        operands = ""
+                        operands = "";
+                        display.style.fontSize = '60px';
+                        displayCount = 1;
                         return display.innerHTML = "0";
                     }    
 
                     if(this.id=='delete') {
-                        operands = operands.slice(0, -1)                       
-                        return display.innerHTML = operands                       
+                        operands = operands.slice(0, -1)
+                        displayCount -= 1;                       
+                        return display.innerHTML = operands;                       
                     }                
                     
                     display.innerHTML = "";    
                     operands += this.getAttribute('data-value');
-                    display.innerHTML = operands;                    
+                    display.innerHTML = operands;
+                    displayCount += 1;
+
+                    console.log(displayCount)
+
+                    if(displayCount >= 13) {
+                        display.style.fontSize = '30px';
+                    }                                   
                 })
             })
 
