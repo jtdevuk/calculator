@@ -70,7 +70,6 @@
         <script>
 
            let display = document.querySelector('#display');
-           let displayValue = display.innerHTML;
            let button = document.querySelector('#one');
            let buttons = document.querySelectorAll('.button');           
            let displayCount = 0;                 
@@ -85,12 +84,13 @@
                     if(this.id=='clear') clear();
                     if(this.id=='delete') del();                                     
 
-                    if(this.getAttribute('data-type') == 'number' || this.getAttribute('data-value') == '.') {                       
-                        
-                        display.innerHTML = ""; 
-                        operatorPresent = false;
-                        displayValue += this.getAttribute('data-value');
-                        display.innerHTML = displayValue;
+                    if(this.getAttribute('data-type') == 'number' || this.getAttribute('data-value') == '.') {                        
+                        if(num1 == 0) {
+                            display.innerHTML = "";
+                        }
+                                                                               
+                        display.innerHTML += this.getAttribute('data-value');                                                
+                        operatorPresent = false;                       
                         displayCount += 1;
                         operatorValue == "" ? num1 += this.getAttribute('data-value') : num2 += this.getAttribute('data-value')                                        
                     }
@@ -102,25 +102,22 @@
                         if(operatorValue == "") {                        
                             operatorValue = this.getAttribute('data-value');
                             operatorPresent = true;
-                            displayValue = num1 + this.getAttribute('data-value');
-                            display.innerHTML = num1 + this.getAttribute('data-value');
+                            display.innerHTML = num1 + this.getAttribute('data-value');                            
                             displayCount += 1 
                         } else {
                             //There's already an operator present, perform the calulation and store the result in num1
                             num1 = operate(num1, num2, operatorValue);
                             num2 = 0;
-                            displayValue = num1 + operatorValue;
-                            operatorValue = this.getAttribute('data-value')
-                            display.innerHTML = num1 + operatorValue;                           
+                            display.innerHTML = num1 + operatorValue;
+                            operatorValue = this.getAttribute('data-value')                         
                         }            
                     }
 
                     if(this.getAttribute('data-value') == '=') {                                             
                         num1 = operate(num1, num2, operatorValue);
                         num2 = 0;
-                        displayValue = num1
-                        operatorValue = ""
                         display.innerHTML = num1;
+                        operatorValue = "";
                     }
 
                     if(displayCount >= 13) display.style.fontSize = '30px';
@@ -128,8 +125,7 @@
             });            
 
             let clear = () => {
-                operatorPresent = false;
-                displayValue = "0";
+                operatorPresent = false;                
                 display.style.fontSize = '60px';
                 displayCount = 0;
                 num1 = 0;
@@ -139,18 +135,18 @@
 
             let del = () => {
                 operatorPresent = false;
-                displayValue = displayValue.slice(0, -1)                        
+                display.innerHTML = display.slice(0, -1)                        
                         
                 if(displayCount > 1) {                                
                     displayCount -=1;
                 } else {
                     displayCount = 0
-                    return display.innerHTML = "0";
+                    return display = "0";
                 }
                 if(displayCount <= 13) {
                     display.style.fontSize = '60px';
                 }                                         
-                return display.innerHTML = displayValue;   
+                // return display.innerHTML = displayValue;   
             }
 
            let add = (a, b) => a + b;
