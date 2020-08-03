@@ -96,15 +96,16 @@
                     }
 
                     //If user enters an operator, and there isn't already one present
-                    if(this.getAttribute('data-type') == 'operator' && operatorPresent == false) {
+                    if(this.getAttribute('data-type') == 'operator') {
 
                         //No previous calculation has been performed
-                        if(operatorValue == "") {                        
+                        if(operatorPresent == false) {                        
                             operatorValue = this.getAttribute('data-value');
                             operatorPresent = true;
                             display.innerHTML = num1 + this.getAttribute('data-value');                            
-                            displayCount += 1 
-                        } else {
+                            displayCount += 1
+
+                        } else if(operatorPresent == true) {
                             //There's already an operator present, perform the calulation and store the result in num1
                             num1 = operate(num1, num2, operatorValue);
                             num2 = 0;
@@ -113,7 +114,12 @@
                         }            
                     }
 
-                    if(this.getAttribute('data-value') == '=') {                                             
+                    if(this.getAttribute('data-value') == '=') {
+                        
+                        if(operatorValue == "") {
+                            return num1;
+                        }
+
                         num1 = operate(num1, num2, operatorValue);
                         num2 = 0;
                         display.innerHTML = num1;
@@ -164,6 +170,12 @@
                 if(operator == '*') return (multiply(a,b));
                 if(operator == '/') return (divide(a,b));
            }
+
+           // = is pressed without any operator? should return num1
+           // get rid of leading 0 when performing operation
+           // after using clear, first number becomes 0 when entering an operator
+           //round to 3 decimal places
+           //+ doesn't work!
            
         </script>
     </body>
