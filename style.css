@@ -133,6 +133,7 @@ img {
 
 #divide {
     grid-area: divide;
+    font-size: 30px;
 }
 
 #clear {
