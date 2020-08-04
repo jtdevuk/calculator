@@ -113,6 +113,7 @@
                     
                     if(this.getAttribute('data-type') == 'operator') {
 
+                        //add ability to adjust operator?
                         if(operatorPresent == true) {                            
                             return;
                         }
@@ -153,7 +154,8 @@
             });            
 
             let clear = () => {
-                operatorPresent = false;                
+                operatorPresent = false;
+                operatorValue = "";                
                 display.style.fontSize = '60px';
                 displayCount = 0;
                 num1 = 0;
@@ -192,11 +194,10 @@
            }           
                      
            //fix resizing of display based on length of display.innerHTML
-           // if two numbers and an operator are entered before pressing clear, the next typed number will start with 0
            // . can be entered several times in a row
            //. can be entered in more than one location in a number
-           //plus and minus display null
-           // leading 0 displayed after pressing clear
+           //when using second operator to complete calculation, rounding and symbol display are incorrect
+           
            
         </script>
     </body>
