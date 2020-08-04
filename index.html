@@ -139,7 +139,10 @@
 
                         num1 = operate(num1, num2, operatorValue);
                         num2 = 0;
-                        display.innerHTML = num1;
+
+                        //+ in front of num1 converts it back into a number, and any un-necessary decimal places are removed
+                        display.innerHTML = +num1.toFixed(5);
+                        
                         operatorValue = "";
                     }
 
@@ -171,7 +174,7 @@
                 } 
             }
 
-           let add = (a, b) => parseInt(a) + parseInt(b);
+           let add = (a, b) => parseFloat(a) + parseFloat(b);
            let subtract = (a, b) => a - b;
            let multiply = (a, b) => a * b;
            let divide = (a, b) => a /b;
@@ -182,12 +185,14 @@
                 if(operator == '-') return (subtract(a,b));
                 if(operator == '*') return (multiply(a,b));
                 if(operator == '/') return (divide(a,b));
-           }
-           
-           //round to 3 decimal places           
+           }           
+                     
            //fix resizing of display based on length of display.innerHTML
            // if two numbers and an operator are entered before pressing clear, the next typed number will start with 0
            // . can be entered several times in a row
+           //plus displays null
+           // leading 0 displayed after pressing clear
+           //backspace doesn't work
            
         </script>
     </body>
