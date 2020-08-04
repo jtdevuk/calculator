@@ -81,7 +81,7 @@
 
                 button.addEventListener("click", function() {  
                     
-                    if(display.innerHTML.length < 20) {
+                    if(display.innerHTML.length < 27) {
 
                         if(this.id=='clear') clear();
                         if(this.id=='delete') del();
@@ -127,7 +127,7 @@
                                 
                                 num1 = operate(num1, num2, operatorValue);
                                 num2 = 0;
-                                display.innerHTML = num1 + operatorValue;
+                                display.innerHTML = +num1.toFixed(5) + this.getAttribute('data-display');
                                 operatorValue = this.getAttribute('data-value');
                                 operatorPresent = true;                         
                             }            
@@ -187,7 +187,7 @@
            let add = (a, b) => parseFloat(a) + parseFloat(b);
            let subtract = (a, b) => a - b;
            let multiply = (a, b) => a * b;
-           let divide = (a, b) => a /b;
+           let divide = (a, b) => a / b;
 
            let operate = (a, b, operator) => {               
                 
@@ -199,7 +199,6 @@
                      
            // . can be entered several times in a row
            //. can be entered in more than one location in a number
-           //when using second operator to complete calculation, rounding and symbol display are incorrect           
            
         </script>
     </body>
