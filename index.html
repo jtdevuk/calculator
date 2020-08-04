@@ -21,10 +21,10 @@
                 <div class="button" id="times" data-value="*" data-display="x" data-type="operator">
                     <span>x</span>
                 </div>                
-                <div class="button" id="minus" data-value="-" data-type="operator">
+                <div class="button" id="minus" data-value="-" data-display="-" data-type="operator">
                     <span>-</span>
                 </div>
-                <div class="button" id="plus" data-value="+" data-type="operator">
+                <div class="button" id="plus" data-value="+" data-display="+" data-type="operator">
                     <span>+</span>
                 </div>
                 <div class="button" id="seven" data-value="7" data-type="number">
@@ -70,7 +70,7 @@
         <script>
 
            const display = document.querySelector('#display');
-           const button = document.querySelector('#one');
+        //    const button = document.querySelector('#one');
            const buttons = document.querySelectorAll('.button');           
            let displayCount = 0;                 
            let operatorPresent = false;
@@ -79,6 +79,7 @@
            let num2 = 0;                    
         
            buttons.forEach(function(button){
+
                 button.addEventListener("click", function() {                                          
                     
                     if(this.id=='clear') clear();
@@ -104,6 +105,7 @@
                             }                          
                         }
 
+                        //could this be changed to display.innerHTML= num1?
                         display.innerHTML += this.getAttribute('data-value');
                         operatorPresent = false;                       
                         displayCount += 1;                                                      
@@ -193,9 +195,8 @@
            // if two numbers and an operator are entered before pressing clear, the next typed number will start with 0
            // . can be entered several times in a row
            //. can be entered in more than one location in a number
-           //plus displays null
+           //plus and minus display null
            // leading 0 displayed after pressing clear
-           //backspace doesn't work
            
         </script>
     </body>
