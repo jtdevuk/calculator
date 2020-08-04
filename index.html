@@ -71,8 +71,7 @@
 
            const display = document.querySelector('#display');
         //    const button = document.querySelector('#one');
-           const buttons = document.querySelectorAll('.button');           
-           let displayCount = 0;                 
+           const buttons = document.querySelectorAll('.button');                            
            let operatorPresent = false;
            let operatorValue = ""
            let num1 = 0;
@@ -80,77 +79,82 @@
         
            buttons.forEach(function(button){
 
-                button.addEventListener("click", function() {                                          
+                button.addEventListener("click", function() {  
                     
-                    if(this.id=='clear') clear();
-                    if(this.id=='delete') del();                                     
+                    if(display.innerHTML.length < 20) {
 
-                    if(this.getAttribute('data-type') == 'number' || this.getAttribute('data-value') == '.') {                        
-                        
-                        if(operatorValue == "") {
+                        if(this.id=='clear') clear();
+                        if(this.id=='delete') del();
+
+                        if(this.getAttribute('data-type') == 'number' || this.getAttribute('data-value') == '.') {                        
                             
-                            if(num1 == 0) {
-                                display.innerHTML = "";
-                                num1 = this.getAttribute('data-value');
+                            if(operatorValue == "") {
+                                
+                                if(num1 == 0) {
+                                    display.innerHTML = "";
+                                    num1 = this.getAttribute('data-value');
+                                } else {
+                                    num1 += this.getAttribute('data-value');
+                                }
+                                
                             } else {
-                                num1 += this.getAttribute('data-value');
+
+                                if(num2 == 0) {                                
+                                    num2 = this.getAttribute('data-value');
+                                } else {
+                                    num2 += this.getAttribute('data-value');
+                                }                          
+                            }
+
+                            //could this be changed to display.innerHTML= num1?
+                            display.innerHTML += this.getAttribute('data-value');
+                            operatorPresent = false;                       
+                        }
+                        
+                        if(this.getAttribute('data-type') == 'operator') {
+
+                            //add ability to adjust operator?
+                            if(operatorPresent == true) {                            
+                                return;
                             }
                             
-                        } else {
+                            if(operatorValue == "") {                        
+                                operatorValue = this.getAttribute('data-value');
+                                operatorPresent = true;
+                                display.innerHTML = num1 + this.getAttribute('data-display');                            
 
-                            if(num2 == 0) {                                
-                                num2 = this.getAttribute('data-value');
-                            } else {
-                                num2 += this.getAttribute('data-value');
-                            }                          
+                            } else if(operatorValue != "") {
+                                
+                                num1 = operate(num1, num2, operatorValue);
+                                num2 = 0;
+                                display.innerHTML = num1 + operatorValue;
+                                operatorValue = this.getAttribute('data-value');
+                                operatorPresent = true;                         
+                            }            
                         }
 
-                        //could this be changed to display.innerHTML= num1?
-                        display.innerHTML += this.getAttribute('data-value');
-                        operatorPresent = false;                       
-                        displayCount += 1;                                                      
-                    }
-                    
-                    if(this.getAttribute('data-type') == 'operator') {
-
-                        //add ability to adjust operator?
-                        if(operatorPresent == true) {                            
-                            return;
-                        }
-                        
-                        if(operatorValue == "") {                        
-                            operatorValue = this.getAttribute('data-value');
-                            operatorPresent = true;
-                            display.innerHTML = num1 + this.getAttribute('data-display');                            
-                            displayCount += 1
-
-                        } else if(operatorValue != "") {
+                        if(this.getAttribute('data-value') == '=') {
                             
+                            if(operatorValue == "") {
+                                return num1;
+                            }
+
                             num1 = operate(num1, num2, operatorValue);
                             num2 = 0;
-                            display.innerHTML = num1 + operatorValue;
-                            operatorValue = this.getAttribute('data-value');
-                            operatorPresent = true;                         
-                        }            
-                    }
 
-                    if(this.getAttribute('data-value') == '=') {
-                        
-                        if(operatorValue == "") {
-                            return num1;
+                            //+ in front of num1 converts it back into a number, and any un-necessary decimal places are removed
+                            display.innerHTML = +num1.toFixed(5);
+                            
+                            operatorValue = "";
                         }
 
-                        num1 = operate(num1, num2, operatorValue);
-                        num2 = 0;
-
-                        //+ in front of num1 converts it back into a number, and any un-necessary decimal places are removed
-                        display.innerHTML = +num1.toFixed(5);
-                        
-                        operatorValue = "";
+                        display.innerHTML.length >= 13 ? display.style.fontSize = '30px' : display.style.fontSize = '60px'
+                    } else {
+                        if(this.id=='clear') clear();
+                        if(this.id=='delete') del();
                     }
-
-                    if(displayCount >= 13) display.style.fontSize = '30px';
                 });
+            
             });            
 
             let clear = () => {
@@ -193,11 +197,9 @@
                 if(operator == '/') return (divide(a,b));
            }           
                      
-           //fix resizing of display based on length of display.innerHTML
            // . can be entered several times in a row
            //. can be entered in more than one location in a number
-           //when using second operator to complete calculation, rounding and symbol display are incorrect
-           
+           //when using second operator to complete calculation, rounding and symbol display are incorrect           
            
         </script>
     </body>
