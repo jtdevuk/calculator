@@ -161,13 +161,15 @@
 
             let del = () => {
                 operatorPresent = false;
-                display.innerHTML = display.slice(0, -1)                        
+                display.innerHTML = display.innerHTML.slice(0, -1)
+                num1 = display.innerHTML                
+                
+                if(display.innerHTML.length == 0) display.innerHTML = "0";                
                         
                 if(displayCount > 1) {                                
                     displayCount -=1;
                 } else {
-                    displayCount = 0
-                    return display = "0";
+                    displayCount = 0                    
                 }
                 if(displayCount <= 13) {
                     display.style.fontSize = '60px';
@@ -190,6 +192,7 @@
            //fix resizing of display based on length of display.innerHTML
            // if two numbers and an operator are entered before pressing clear, the next typed number will start with 0
            // . can be entered several times in a row
+           //. can be entered in more than one location in a number
            //plus displays null
            // leading 0 displayed after pressing clear
            //backspace doesn't work
