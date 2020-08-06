@@ -81,7 +81,7 @@
 
                 button.addEventListener("click", function() {  
                     
-                    if(display.innerHTML.length < 27) {
+                    if(display.innerHTML.length < 27) {                        
 
                         if(this.id=='clear') clear();
                         if(this.id=='delete') del();
@@ -92,9 +92,18 @@
                                 
                                 if(num1 == 0) {
                                     display.innerHTML = "";
+
+                                    //add an exception for . as first value
                                     num1 = this.getAttribute('data-value');
                                 } else {
-                                    num1 += this.getAttribute('data-value');
+                                    
+                                    //DRY this section into hasPoint function
+                                    
+                                    if(this.getAttribute('data-value') == '.' && hasPoint(num1) == true) {
+                                        return;
+                                    } else {
+                                        num1 += this.getAttribute('data-value');
+                                    }                                  
                                 }
                                 
                             } else {
@@ -102,7 +111,11 @@
                                 if(num2 == 0) {                                
                                     num2 = this.getAttribute('data-value');
                                 } else {
-                                    num2 += this.getAttribute('data-value');
+                                    if(this.getAttribute('data-value') == '.' && hasPoint(num2) == true) {
+                                        return;
+                                    } else {
+                                        num2 += this.getAttribute('data-value');
+                                    }
                                 }                          
                             }
 
@@ -171,17 +184,14 @@
                 operatorPresent = false;
                 display.innerHTML = display.innerHTML.slice(0, -1)
                 num1 = display.innerHTML                
-                
-                if(display.innerHTML.length == 0) display.innerHTML = "0";                
-                        
-                if(displayCount > 1) {                                
-                    displayCount -=1;
+            }
+
+            let hasPoint = function(num) { 
+                if(num.includes('.')) {
+                    return true;
                 } else {
-                    displayCount = 0                    
+                    return false;
                 }
-                if(displayCount <= 13) {
-                    display.style.fontSize = '60px';
-                } 
             }
 
            let add = (a, b) => parseFloat(a) + parseFloat(b);
