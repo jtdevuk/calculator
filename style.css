@@ -140,6 +140,10 @@ img {
     grid-area: clear;
 }
 
+.disable-dbl-tap-zoom {
+    touch-action: manipulation;
+  }
+
 @media (max-width: 600px) {
     body {
         padding: none;
