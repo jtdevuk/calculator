@@ -144,11 +144,7 @@ img {
 @media (max-width: 1024px) {
     body {
         padding: none;
-    }
-
-    .disable-dbl-tap-zoom {
-        touch-action: manipulation;
-      }
+    }    
     
     #calculator {
         display: block;        
