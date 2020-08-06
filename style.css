@@ -141,7 +141,7 @@ img {
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 1024px) {
     body {
         padding: none;
     }
@@ -155,7 +155,7 @@ img {
         border-radius: 0;
         margin: 0;   
         width: 100vw;
-        height: 95vh;    
+        height: 80vh;    
         background-color: #D6F8D6;
         box-shadow: none; 
     }
