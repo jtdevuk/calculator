@@ -139,3 +139,23 @@ img {
 #clear {
     grid-area: clear;
 }
+
+@media (max-width: 600px) {
+    body {
+        padding: none;
+    }
+    
+    #calculator {
+        display: block;        
+        border-radius: 0;
+        margin: 0;   
+        width: 100vw;
+        height: 100vh;    
+        background-color: #D6F8D6;
+        box-shadow: none; 
+    }
+
+    p {
+        display: none;
+    }
+}
