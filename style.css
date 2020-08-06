@@ -140,14 +140,15 @@ img {
     grid-area: clear;
 }
 
-.disable-dbl-tap-zoom {
-    touch-action: manipulation;
-  }
 
 @media (max-width: 600px) {
     body {
         padding: none;
     }
+
+    .disable-dbl-tap-zoom {
+        touch-action: manipulation;
+      }
     
     #calculator {
         display: block;        
@@ -160,6 +161,6 @@ img {
     }
 
     p {
-        display: none;
+        display: none !important;
     }
 }
