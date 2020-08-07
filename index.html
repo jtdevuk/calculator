@@ -76,11 +76,62 @@
            let num2 = 0;                  
            buttons.forEach(function(button){
                 button.addEventListener("click", function() {
-                    const dataType = this.getAttribute('data-type');
-                    const dataValue = this.getAttribute('data-value')                    
+                    mainOp(button);
+                });                    
+            });
+            document.addEventListener("keyup", function(keypress){
+                mapKeyToButton(keypress);
+            });
+            let mapKeyToButton = (keypress) => {
+                switch(keypress.key) {
+                    case "1": button = document.querySelector('#one');
+                    break
+                    case "2": button = document.querySelector('#two');
+                    break
+                    case "3": button = document.querySelector('#three');
+                    break
+                    case "4": button = document.querySelector('#four');
+                    break
+                    case "5": button = document.querySelector('#five');
+                    break
+                    case "6": button = document.querySelector('#six');
+                    break
+                    case "7": button = document.querySelector('#seven');
+                    break
+                    case "8": button = document.querySelector('#eight');
+                    break
+                    case "9": button = document.querySelector('#nine');
+                    break
+                    case "0": button = document.querySelector('#zero');
+                    break
+                    case "+": button = document.querySelector('#plus');
+                    break
+                    case "-": button = document.querySelector('#minus');
+                    break
+                    case "*": button = document.querySelector('#times');
+                    break
+                    case "/": button = document.querySelector('#divide');
+                    break
+                    case "Enter": button = document.querySelector('#equals');
+                    break
+                    case "=": button = document.querySelector('#equals');
+                    break
+                    case "Backspace": button = document.querySelector('#delete');
+                    break
+                    case "Delete": button = document.querySelector('#delete');
+                    break
+                    case "Escape": button = document.querySelector('#clear');
+                    break                    
+                    default: return;
+                }
+                mainOp(button);
+            }
+            let mainOp = (input) => {
+                    const dataType = input.getAttribute('data-type');
+                    const dataValue = input.getAttribute('data-value');                    
                     if(display.innerHTML.length < checkSize()) { 
-                        if(this.id=='clear') clear();
-                        if(this.id=='delete') del();
+                        if(input.id=='clear') clear();
+                        if(input.id=='delete') del();
                         if(dataType == 'number' || dataValue == '.') {                        
                             if(operatorValue == "") {                                                                                                                      
                                 if(num1 == 0) {
@@ -114,12 +165,12 @@
                             if(operatorValue == "") {                        
                                 operatorValue = dataValue;
                                 operatorPresent = true;
-                                display.innerHTML = num1 + this.getAttribute('data-display');                           
+                                display.innerHTML = num1 + input.getAttribute('data-display');                           
                             } else if(operatorValue != "") {
                                 if(checkError()) return;
                                 num1 = +(operate(num1, num2, operatorValue)).toFixed(5);
                                 num2 = 0;
-                                display.innerHTML = num1 + this.getAttribute('data-display');
+                                display.innerHTML = num1 + input.getAttribute('data-display');
                                 operatorValue = dataValue;
                                 operatorPresent = true;                         
                             }            
@@ -140,8 +191,7 @@
                         if(this.id=='clear') clear();
                         if(this.id=='delete') del();
                     }
-                });
-            });            
+                    }            
             let clear = () => {
                 operatorPresent = false;
                 operatorValue = "";                
