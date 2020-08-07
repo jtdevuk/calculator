@@ -75,42 +75,44 @@
            let num1 = 0;
            let num2 = 0;                  
            buttons.forEach(function(button){
-                button.addEventListener("click", function() {                    
+                button.addEventListener("click", function() {
+                    const dataType = this.getAttribute('data-type');
+                    const dataValue = this.getAttribute('data-value')                    
                     if(display.innerHTML.length < checkSize()) { 
                         if(this.id=='clear') clear();
                         if(this.id=='delete') del();
-                        if(this.getAttribute('data-type') == 'number' || this.getAttribute('data-value') == '.') {                        
+                        if(dataType == 'number' || dataValue == '.') {                        
                             if(operatorValue == "") {                                                                                                                      
                                 if(num1 == 0) {
                                     display.innerHTML = "";
-                                    num1 = this.getAttribute('data-value');
+                                    num1 = dataValue;
                                 } else {
-                                    if(this.getAttribute('data-value') == '.' && hasPoint(num1) == true) {
+                                    if(dataValue == '.' && hasPoint(num1) == true) {
                                         return;
                                     } else {
-                                        num1 += this.getAttribute('data-value');
+                                        num1 += dataValue;
                                     }                                  
                                 }                                
                             } else {
                                 if(num2 == 0) {                                
-                                    num2 = this.getAttribute('data-value');
+                                    num2 = dataValue;
                                 } else {
-                                    if(this.getAttribute('data-value') == '.' && hasPoint(num2) == true) {
+                                    if(dataValue == '.' && hasPoint(num2) == true) {
                                         return;
                                     } else {
-                                        num2 += this.getAttribute('data-value');
+                                        num2 += dataValue;
                                     }
                                 }                          
                             }
-                            display.innerHTML += this.getAttribute('data-value');
+                            display.innerHTML += dataValue;
                             operatorPresent = false;                       
                         }
-                        if(this.getAttribute('data-type') == 'operator') {
+                        if(dataType == 'operator') {
                             if(operatorPresent == true) {                            
                                 return;
                             }
                             if(operatorValue == "") {                        
-                                operatorValue = this.getAttribute('data-value');
+                                operatorValue = dataValue;
                                 operatorPresent = true;
                                 display.innerHTML = num1 + this.getAttribute('data-display');                           
                             } else if(operatorValue != "") {
@@ -118,11 +120,11 @@
                                 num1 = +(operate(num1, num2, operatorValue)).toFixed(5);
                                 num2 = 0;
                                 display.innerHTML = num1 + this.getAttribute('data-display');
-                                operatorValue = this.getAttribute('data-value');
+                                operatorValue = dataValue;
                                 operatorPresent = true;                         
                             }            
                         }
-                        if(this.getAttribute('data-value') == '=') {
+                        if(dataValue == '=') {
                             if(operatorValue == "") {
                                 return num1;
                             }                            
