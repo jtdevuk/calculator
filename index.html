@@ -78,11 +78,11 @@
            buttons.forEach(function(button){
                 button.addEventListener("click", function() {                    
                     
-                    if(display.innerHTML.length < checkSize()) {                        
+                    if(display.innerHTML.length < checkSize()) { 
                         if(this.id=='clear') clear();
                         if(this.id=='delete') del();
                         if(this.getAttribute('data-type') == 'number' || this.getAttribute('data-value') == '.') {                        
-                            if(operatorValue == "") {                                
+                            if(operatorValue == "") {                                                                                                                      
                                 if(num1 == 0) {
                                     display.innerHTML = "";
                                     //add an exception for . as first value
@@ -120,6 +120,9 @@
                                 display.innerHTML = num1 + this.getAttribute('data-display');                            
 
                             } else if(operatorValue != "") {
+
+                                if(checkError()) return;
+
                                 num1 = +(operate(num1, num2, operatorValue)).toFixed(5);
                                 num2 = 0;
                                 display.innerHTML = num1 + this.getAttribute('data-display');
@@ -131,7 +134,12 @@
                             
                             if(operatorValue == "") {
                                 return num1;
-                            }
+                            }                            
+
+                            if(checkError()) return;
+
+                            console.log('this still runs after checkError')
+                           
                             num1 = +(operate(num1, num2, operatorValue)).toFixed(5);
                             num2 = 0;
                             //+ in front of num1 converts it back into a number, and any un-necessary decimal places are removed
@@ -153,7 +161,8 @@
                 displayCount = 0;
                 num1 = 0;
                 num2 = 0;
-                return display.innerHTML = "0";                
+                display.innerHTML = "0";
+                return true;                
             }
 
             let del = () => {
@@ -169,6 +178,14 @@
             let checkSize = () => {
                 const screen = window.matchMedia("(max-width: 1024px)")
                 return screen.matches ? 20 : 27;
+            }
+
+            let checkError = () => {                
+                if(operatorValue == "/" && num2 == 0) {
+                                operatorValue = "";
+                                num1 = 0;                                
+                                return display.innerHTML = 'Error';
+                            }
             }
 
            let add = (a, b) => parseFloat(a) + parseFloat(b);
