@@ -140,7 +140,6 @@ img {
     grid-area: clear;
 }
 
-
 @media (max-width: 1024px) {
     body {
         padding: none;
@@ -158,5 +157,14 @@ img {
 
     p {
         display: none !important;
+    }
+
+    #display {        
+        padding: 10px 10px 0 0;       
+        height: 60px;       
+    }
+
+    #button-container {         
+        margin-top: 5px;           
     }
 }

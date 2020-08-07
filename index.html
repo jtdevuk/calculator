@@ -162,12 +162,15 @@
                 num1 = display.innerHTML                
             }
 
-            let hasPoint = function(num) { 
-                if(num.includes('.')) {
-                    return true;
-                } else {
-                    return false;
-                }
+            let hasPoint = (num) => { 
+
+                num.includes('.') ? true : false;
+                
+                // if(num.includes('.')) {
+                //     return true;
+                // } else {
+                //     return false;
+                // }
             }
 
            let add = (a, b) => parseFloat(a) + parseFloat(b);
