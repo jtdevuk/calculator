@@ -73,11 +73,9 @@
            let operatorPresent = false;
            let operatorValue = ""
            let num1 = 0;
-           let num2 = 0;                    
-        
+           let num2 = 0;                  
            buttons.forEach(function(button){
                 button.addEventListener("click", function() {                    
-                    
                     if(display.innerHTML.length < checkSize()) { 
                         if(this.id=='clear') clear();
                         if(this.id=='delete') del();
@@ -85,7 +83,6 @@
                             if(operatorValue == "") {                                                                                                                      
                                 if(num1 == 0) {
                                     display.innerHTML = "";
-                                    //add an exception for . as first value
                                     num1 = this.getAttribute('data-value');
                                 } else {
                                     if(this.getAttribute('data-value') == '.' && hasPoint(num1) == true) {
@@ -105,24 +102,19 @@
                                     }
                                 }                          
                             }
-                            //could this be changed to display.innerHTML= num1?
                             display.innerHTML += this.getAttribute('data-value');
                             operatorPresent = false;                       
                         }
                         if(this.getAttribute('data-type') == 'operator') {
-                            //add ability to adjust operator?
                             if(operatorPresent == true) {                            
                                 return;
                             }
                             if(operatorValue == "") {                        
                                 operatorValue = this.getAttribute('data-value');
                                 operatorPresent = true;
-                                display.innerHTML = num1 + this.getAttribute('data-display');                            
-
+                                display.innerHTML = num1 + this.getAttribute('data-display');                           
                             } else if(operatorValue != "") {
-
                                 if(checkError()) return;
-
                                 num1 = +(operate(num1, num2, operatorValue)).toFixed(5);
                                 num2 = 0;
                                 display.innerHTML = num1 + this.getAttribute('data-display');
@@ -131,15 +123,10 @@
                             }            
                         }
                         if(this.getAttribute('data-value') == '=') {
-                            
                             if(operatorValue == "") {
                                 return num1;
                             }                            
-
                             if(checkError()) return;
-
-                            console.log('this still runs after checkError')
-                           
                             num1 = +(operate(num1, num2, operatorValue)).toFixed(5);
                             num2 = 0;
                             //+ in front of num1 converts it back into a number, and any un-necessary decimal places are removed
@@ -153,7 +140,6 @@
                     }
                 });
             });            
-
             let clear = () => {
                 operatorPresent = false;
                 operatorValue = "";                
@@ -164,35 +150,29 @@
                 display.innerHTML = "0";
                 return true;                
             }
-
             let del = () => {
                 operatorPresent = false;
                 display.innerHTML = display.innerHTML.slice(0, -1)
                 num1 = display.innerHTML                
             }
-
             let hasPoint = (num) => { 
                 return num.includes('.') ? true : false; 
             }
-
             let checkSize = () => {
                 const screen = window.matchMedia("(max-width: 1024px)")
                 return screen.matches ? 20 : 27;
             }
-
             let checkError = () => {                
                 if(operatorValue == "/" && num2 == 0) {
-                                operatorValue = "";
-                                num1 = 0;                                
-                                return display.innerHTML = 'Error';
-                            }
+                    operatorValue = "";
+                    num1 = 0;                                
+                    return display.innerHTML = 'Error';
+                }
             }
-
            let add = (a, b) => parseFloat(a) + parseFloat(b);
            let subtract = (a, b) => a - b;
            let multiply = (a, b) => a * b;
            let divide = (a, b) => a / b;
-
            let operate = (a, b, operator) => {               
                 if(operator == '+') return (add(a,b));                
                 if(operator == '-') return (subtract(a,b));
