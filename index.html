@@ -76,8 +76,9 @@
            let num2 = 0;                    
         
            buttons.forEach(function(button){
-                button.addEventListener("click", function() {                   
-                    if(display.innerHTML.length < 27) {                        
+                button.addEventListener("click", function() {                    
+                    
+                    if(display.innerHTML.length < checkSize()) {                        
                         if(this.id=='clear') clear();
                         if(this.id=='delete') del();
                         if(this.getAttribute('data-type') == 'number' || this.getAttribute('data-value') == '.') {                        
@@ -163,6 +164,11 @@
 
             let hasPoint = (num) => { 
                 return num.includes('.') ? true : false; 
+            }
+
+            let checkSize = () => {
+                const screen = window.matchMedia("(max-width: 1024px)")
+                return screen.matches ? 20 : 27;
             }
 
            let add = (a, b) => parseFloat(a) + parseFloat(b);
