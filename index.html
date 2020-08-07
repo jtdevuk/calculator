@@ -69,9 +69,7 @@
         <p>Created by <a href="www.github.com">jtdevuk </a>2020</p>
         <p>Icons made by <a href="https://www.flaticon.com/authors/prettycons" title="prettycons">prettycons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></p>
         <script>
-
            const display = document.querySelector('#display');
-        //    const button = document.querySelector('#one');
            const buttons = document.querySelectorAll('.button');                            
            let operatorPresent = false;
            let operatorValue = ""
@@ -79,36 +77,24 @@
            let num2 = 0;                    
         
            buttons.forEach(function(button){
-
-                button.addEventListener("click", function() {  
-                    
+                button.addEventListener("click", function() {                   
                     if(display.innerHTML.length < 27) {                        
-
                         if(this.id=='clear') clear();
                         if(this.id=='delete') del();
-
                         if(this.getAttribute('data-type') == 'number' || this.getAttribute('data-value') == '.') {                        
-                            
-                            if(operatorValue == "") {
-                                
+                            if(operatorValue == "") {                                
                                 if(num1 == 0) {
                                     display.innerHTML = "";
-
                                     //add an exception for . as first value
                                     num1 = this.getAttribute('data-value');
                                 } else {
-                                    
-                                    //DRY this section into hasPoint function
-                                    
                                     if(this.getAttribute('data-value') == '.' && hasPoint(num1) == true) {
                                         return;
                                     } else {
                                         num1 += this.getAttribute('data-value');
                                     }                                  
-                                }
-                                
+                                }                                
                             } else {
-
                                 if(num2 == 0) {                                
                                     num2 = this.getAttribute('data-value');
                                 } else {
@@ -119,56 +105,45 @@
                                     }
                                 }                          
                             }
-
                             //could this be changed to display.innerHTML= num1?
                             display.innerHTML += this.getAttribute('data-value');
                             operatorPresent = false;                       
                         }
-                        
                         if(this.getAttribute('data-type') == 'operator') {
-
                             //add ability to adjust operator?
                             if(operatorPresent == true) {                            
                                 return;
                             }
-                            
                             if(operatorValue == "") {                        
                                 operatorValue = this.getAttribute('data-value');
                                 operatorPresent = true;
                                 display.innerHTML = num1 + this.getAttribute('data-display');                            
 
                             } else if(operatorValue != "") {
-                                
-                                num1 = operate(num1, num2, operatorValue);
+                                num1 = +(operate(num1, num2, operatorValue)).toFixed(5);
                                 num2 = 0;
-                                display.innerHTML = +num1.toFixed(5) + this.getAttribute('data-display');
+                                display.innerHTML = num1 + this.getAttribute('data-display');
                                 operatorValue = this.getAttribute('data-value');
                                 operatorPresent = true;                         
                             }            
                         }
-
                         if(this.getAttribute('data-value') == '=') {
                             
                             if(operatorValue == "") {
                                 return num1;
                             }
-
-                            num1 = operate(num1, num2, operatorValue);
+                            num1 = +(operate(num1, num2, operatorValue)).toFixed(5);
                             num2 = 0;
-
                             //+ in front of num1 converts it back into a number, and any un-necessary decimal places are removed
                             display.innerHTML = +num1.toFixed(5);
-                            
                             operatorValue = "";
                         }
-
-                        display.innerHTML.length >= 13 ? display.style.fontSize = '30px' : display.style.fontSize = '60px'
+                        display.innerHTML.length >= 10 ? display.style.fontSize = '30px' : display.style.fontSize = '60px'
                     } else {
                         if(this.id=='clear') clear();
                         if(this.id=='delete') del();
                     }
                 });
-            
             });            
 
             let clear = () => {
@@ -201,16 +176,11 @@
            let divide = (a, b) => a / b;
 
            let operate = (a, b, operator) => {               
-                
                 if(operator == '+') return (add(a,b));                
                 if(operator == '-') return (subtract(a,b));
                 if(operator == '*') return (multiply(a,b));
                 if(operator == '/') return (divide(a,b));
            }           
-                     
-           // . can be entered several times in a row
-           //. can be entered in more than one location in a number
-           
         </script>
     </body>
 </html>
