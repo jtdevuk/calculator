@@ -6,7 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=no">
     </head>
     <body>
-
         <div id="calculator">
             <div id="display">0</div>
             <div id="button-container">
@@ -163,14 +162,7 @@
             }
 
             let hasPoint = (num) => { 
-
-                num.includes('.') ? true : false;
-                
-                // if(num.includes('.')) {
-                //     return true;
-                // } else {
-                //     return false;
-                // }
+                return num.includes('.') ? true : false; 
             }
 
            let add = (a, b) => parseFloat(a) + parseFloat(b);
